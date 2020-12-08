@@ -1,0 +1,6 @@
+.b-lead {
+  @include for-width(+tablet-m) {
+    padding-bottom: rem(316);
+    background: url(/assets/images/lead__bg.svg) center bottom / contain no-repeat;
+  }
+}

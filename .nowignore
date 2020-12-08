@@ -1,0 +1,5 @@
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt

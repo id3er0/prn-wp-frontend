@@ -1,0 +1,50 @@
+$filepath: '/assets/images/icons/';
+
+$icons: (
+  //name                       ext  w        h
+  menu                         svg  rem(32)  rem(32),
+);
+
+.b-icon {
+  display: block;
+  background: center / contain no-repeat;
+
+  &._flip-horizontal {
+    transform: scaleX(-1);
+  }
+
+  &._flip-vertical {
+    transform: scaleY(-1);
+  }
+
+  &._rotate_90 {
+    transform: rotate(90deg);
+  }
+
+  &._left {
+    margin-right: rem(8);
+  }
+
+  &._right {
+    margin-left: rem(8);
+  }
+
+  @each $icon in $icons {
+    &._#{nth($icon, 1)} {
+      width: nth($icon, 3);
+      height: nth($icon, 4);
+      background-image: url($filepath + 'icon__' + nth($icon, 1) + '.' + nth($icon, 2));
+    }
+  }
+}
+
+.b-icon-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: rem(-4);
+
+  > * {
+    margin: rem(4);
+  }
+}
