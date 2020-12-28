@@ -109,6 +109,14 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/style-resources', // Globally import Sass files
     '@nuxtjs/dayjs',
+    ['nuxt-vuex-localstorage', {
+      // localStorage: [
+      //   'favourites',
+      // ],
+      sessionStorage: [
+        'favourites',
+      ],
+    }],
   ],
   /*
   ** Globally import Sass files
