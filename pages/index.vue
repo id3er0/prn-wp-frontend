@@ -19,6 +19,7 @@
                   )
                     .b-card__image(
                       :style="{'background-image': `url(${item.video.video_meta.poster})`}"
+                      @click="$router.push({name: 'videos-type', params: {type: item.key}})"
                     )
                   h3.b-card__subtitle.-t-cut(
                     v-html="item.title"
@@ -44,6 +45,7 @@
                   .-mb-2
                     .b-card__image(
                       :style="{'background-image': `url(${item.video_meta.poster})`}"
+                      @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"
                     )
                   h3.b-card__subtitle.-t-cut(
                     v-html="item.title"
