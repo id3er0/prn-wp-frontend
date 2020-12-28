@@ -1,0 +1,48 @@
+.b-header {
+  padding: 0;
+  box-shadow: 0 rem(4) rem(10) transparentize(#000, 0.9);
+}
+
+.b-nav {
+  display: flex;
+  margin: 0 rem(-32);
+
+  > * {
+    margin: 0 rem(32);
+  }
+}
+
+.b-nav__item {
+  display: flex;
+  align-items: center;
+  color: #141414;
+  text-decoration: none;
+  border: none;
+  border-bottom: solid rem(2) transparent;
+  border-radius: 0;
+  background: transparent;
+  padding: rem(10) rem(1) rem(8);
+  transition: all 0.3s;
+
+  @at-root button#{&}, a#{&} {
+    &:not([disabled]) {
+      &:hover,
+      &:focus {
+        color: #141414;
+        background: transparent;
+        border-bottom-color: $color__button;
+      }
+    }
+  }
+}
+
+.b-nav-item__title {
+  font-size: rem(16);
+  line-height: rem(19);
+}
+
+.b-nav-item__text {
+  font-size: rem(14);
+  line-height: rem(16);
+  font-weight: 300;
+}

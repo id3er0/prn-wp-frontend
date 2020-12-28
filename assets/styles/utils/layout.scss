@@ -1,4 +1,4 @@
-.-container {
+.g-container {
   margin: 0 auto;
   padding: 0 calc(var(--marginX) * 1rem);
   max-width: calc(var(--maxW) * 1rem);
@@ -7,50 +7,88 @@
   }
 }
 
-.-row {
+.g-row {
+  --rowGap: #{remX(24)};
   display: flex;
+  margin: calc(var(--rowGap) * -0.5rem);
 
-  @include for-width(-tablet-m) {
+  > * {
+    margin: calc(var(--rowGap) * 0.5rem);
+  }
+
+  @include for-width(-tablet) {
     flex-direction: column;
   }
 
-  @include for-width(+tablet-m) {
-    margin: -20px;
-
-    > * {
-      margin: 20px;
-    }
+  @include for-width(+tablet) {
+    flex-wrap: wrap;
   }
 }
 
-.-col {
-  @include for-width(+tablet-m) {
-    padding: calc(var(--marginY) * 1rem) 0;
+.g-col {
+  min-width: 0; // Fix for truncated text (`.-t-cut`).
+  @include for-width(+tablet) {
+    //padding: calc(var(--marginY) * 1rem) 0;
     box-sizing: border-box;
-    flex: 0 0 100%;
+    flex: 1 1 auto;
 
-    &._w-50 {
-      flex-basis: calc((100% / 2) - 40px);
+    &._w-2-1 {
+      flex: 0 0 calc((100% / 2 * 1) - (var(--rowGap) * 1rem));
     }
 
-    &._w-66 {
-      flex-basis: calc((100% / 3 * 2) - 40px);
+    &._w-3-1 {
+      flex: 0 0 calc((100% / 3 * 1) - (var(--rowGap) * 1rem));
     }
 
-    &._w-33 {
-      flex-basis: calc((100% / 3 * 1) - 40px);
+    &._w-3-2 {
+      flex: 0 0 calc((100% / 3 * 2) - (var(--rowGap) * 1rem));
     }
 
-    &._w-25 {
-      flex-basis: calc((100% / 4 * 1) - 40px);
+    &._w-4-1 {
+      flex: 0 0 calc((100% / 4 * 1) - (var(--rowGap) * 1rem));
+    }
+
+    &._w-4-2 {
+      flex: 0 0 calc((100% / 4 * 2) - (var(--rowGap) * 1rem));
+    }
+
+    &._w-4-3 {
+      flex: 0 0 calc((100% / 4 * 3) - (var(--rowGap) * 1rem));
+    }
+
+    &._w-5-1 {
+      flex: 0 0 calc((100% / 5 * 1) - (var(--rowGap) * 1rem));
+    }
+
+    &._w-5-2 {
+      flex: 0 0 calc((100% / 5 * 2) - (var(--rowGap) * 1rem));
+    }
+
+    &._w-5-3 {
+      flex: 0 0 calc((100% / 5 * 3) - (var(--rowGap) * 1rem));
+    }
+
+    &._w-5-4 {
+      flex: 0 0 calc((100% / 5 * 4) - (var(--rowGap) * 1rem));
     }
   }
 }
 
 .-flex {
   display: flex;
+  flex-direction: row;
 }
 
 .-flex-divider {
   flex: 1 1 auto;
+}
+
+.-relative {
+  position: relative;
+}
+
+.-pos-right-bottom {
+  position: absolute;
+  right: 0;
+  bottom: rem(16);
 }

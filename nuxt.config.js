@@ -1,11 +1,10 @@
-import Fiber from 'fibers';
-import Sass from 'sass';
-import './env-config';
+// import Fiber from 'fibers';
+// import Sass from 'sass';
 
-const customSass = {
-  implementation: Sass,
-  fiber: Fiber,
-};
+// const customSass = {
+//   implementation: Sass,
+//   fiber: Fiber,
+// };
 
 const title = '[App name]';
 const description = '[Description]';
@@ -48,7 +47,9 @@ head.link = [
 ];
 
 module.exports = {
-  mode: 'spa',
+  // mode: 'spa',
+  mode: 'universal',
+  ssr: true,
   /*
   ** Headers of the page
   */
@@ -58,11 +59,25 @@ module.exports = {
   */
   loading: {color: '#3B8070'},
   /*
+  ** Env variables
+   */
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.API_URL
+    }
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_URL
+    }
+  },
+  // privateRuntimeConfig: {},
+  /*
   ** Build configuration
   */
   build: {
     loaders: {
-      scss: customSass,
+      // scss: customSass,
     },
     // postcss: [
     //   require('postcss-scrollbar')(),
@@ -84,9 +99,10 @@ module.exports = {
     },
   },
   plugins: [
-    // {src: '~/plugins/plugin.js'},
+    {src: '~/plugins/content-placeholders.client.js'},
   ],
   modules: [
+    '@nuxtjs/axios',
     '@nuxtjs/style-resources', // Globally import Sass files
     '@nuxtjs/dayjs',
   ],

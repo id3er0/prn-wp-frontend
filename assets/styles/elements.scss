@@ -1,6 +1,157 @@
-.b-lead {
+@mixin buttonBase {
+  display: inline-flex;
+  //flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  margin: 0;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: rem(16);
+  font-weight: 500;
+  line-height: 1.43;
+  text-decoration: none;
+  text-transform: none;
+  color: $color__text;
+  background-color: #fff;
+  border: rem(1) solid $color__text_medium;
+  outline: none;
+  padding: rem(8) rem(16);
+  border-radius: rem(4);
+  box-sizing: border-box;
+  transition: all 0.3s;
+
+  svg {
+    path {
+      fill: $color__text;
+      transition: all 0.3s;
+    }
+  }
+
+  @at-root button#{&}, a#{&} {
+    &:not([disabled]) {
+      color: $color__button;
+      border-color: $color__button;
+      cursor: pointer;
+
+      svg {
+        path {
+          fill: $color__link;
+        }
+      }
+
+      &:hover,
+      &:focus {
+        color: #fff;
+        background: $color__button;
+        box-shadow: 0 rem(2) rem(12) rgba(248, 75, 148, 0.37);
+
+        svg {
+          path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+
+    &[disabled] {
+      cursor: pointer;
+      opacity: 0.5;
+    }
+  }
+}
+
+.b-button {
+  @include buttonBase;
+
+  &._icon {
+    min-width: auto;
+    padding: rem(2);
+    border: none;
+    background: transparent;
+
+    &._bg {
+      background: #fff;
+    }
+
+    @at-root button#{&}, a#{&} {
+      &:not([disabled]) {
+        &:hover,
+        &:focus {
+          color: $color__button;
+          background: #fff;
+          box-shadow: 0 rem(2) rem(12) rgba(248, 75, 148, 0.37);
+        }
+      }
+    }
+  }
+
+  &._w-full {
+    width: 100%;
+  }
+}
+
+.b-tag {
+  @include buttonBase;
+  font-size: rem(14);
+  line-height: rem(16);
+  color: #141414;
+  background: #F1F2F5;
+  border: none;
+  border-radius: rem(15);
+  padding: rem(8) rem(21);
+
+  @at-root button#{&}, a#{&} {
+    &:not([disabled]) {
+      &:hover,
+      &:focus {
+        color: $color__button;
+        background: #fff;
+        box-shadow: 0 rem(2) rem(12) rgba(248, 75, 148, 0.37);
+      }
+    }
+  }
+}
+
+.b-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin: rem(-10);
+
+  > * {
+    margin: rem(10);
+  }
+}
+
+.b-tags {
+  @extend .b-buttons;
+  margin: rem(-4);
+
+  > * {
+    margin: rem(4);
+  }
+}
+
+.b-main {
+  padding: rem(32) 0 rem(64);
+}
+
+.b-sidebar {
+  padding: rem(16);
+  border-radius: rem(5);
+  box-shadow: 0 rem(4) rem(10) transparentize(#000, 0.9);
+
   @include for-width(+tablet-m) {
-    padding-bottom: rem(316);
-    background: url(/assets/images/lead__bg.svg) center bottom / contain no-repeat;
+    position: sticky;
+    top: rem(16);
+  }
+}
+
+.b-sidebar__item {
+  &:not(:last-child) {
+    border-bottom: rem(1) solid #DADADA;
+    padding-bottom: rem(16);
+    margin-bottom: rem(16);
   }
 }
