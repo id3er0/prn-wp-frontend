@@ -34,7 +34,7 @@
             v-else
           )
             .g-col._w-3-1(
-              v-for="n in 6"
+              v-for="n in 9"
               :key="n"
             )
               content-placeholders(:rounded="true")

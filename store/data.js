@@ -177,12 +177,37 @@ export const actions = {
     });
 
     let posts = [];
+    let ids = [];
+    let per_page = 15;
+
+    if (type === 'favourites') {
+      ids = context.rootState.favourites.items;
+
+      if (!Array.isArray(ids) || ids.length < 1) {
+        context.commit('updateField', {
+          path: 'posts',
+          value: {
+            ...context.posts,
+            [type]: false,
+          },
+        });
+
+        context.commit('updateField', {
+          path: 'postsLoaded',
+          value: true,
+        });
+        return true;
+      }
+
+      per_page = ids.length;
+    }
 
     const requestPosts = async (page) => {
       const params = {
         type,
-        per_page: 15,
+        per_page,
         page,
+        ids,
       };
 
       if (tag) {

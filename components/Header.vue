@@ -44,8 +44,8 @@
             icon: '_woman',
           },
           {
-            route: 'favourites',
-            params: {},
+            route: 'videos-type',
+            params: {type: 'favourites'},
             name: 'Favourites',
             text: 'Your starred videos',
             icon: '_star',

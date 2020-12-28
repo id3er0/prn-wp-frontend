@@ -21,6 +21,7 @@
                       :style="{'background-image': `url(${item.video.video_meta.poster})`}"
                       @click="$router.push({name: 'videos-type', params: {type: item.key}})"
                     )
+                      PostCardLike(:id="item.video.id")
                   h3.b-card__subtitle.-t-cut(
                     v-html="item.title"
                   )
@@ -47,6 +48,7 @@
                       :style="{'background-image': `url(${item.video_meta.poster})`}"
                       @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"
                     )
+                      PostCardLike(:id="item.id")
                   h3.b-card__subtitle.-t-cut(
                     v-html="item.title"
                   )
@@ -65,7 +67,7 @@
           )
             .g-row
               .g-col._w-3-1(
-                v-for="n in 6"
+                v-for="n in 9"
                 :key="n"
               )
                 content-placeholders(:rounded="true")
@@ -89,10 +91,15 @@
 
 <script>
 import Sidebar from '@/components/sidebar/Sidebar';
+import PostCardLike from '@/components/post-card/PostCardLike';
 import { mapActions, mapGetters } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
 
 export default {
+  components: {
+    PostCardLike,
+    Sidebar,
+  },
   async fetch() {
     await this.fetchFront();
     await this.fetchTags();
@@ -102,9 +109,6 @@ export default {
       'fetchFront',
       'fetchTags',
     ]),
-  },
-  components: {
-    Sidebar,
   },
   computed: {
     ...mapFields('data', [
