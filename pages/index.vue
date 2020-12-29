@@ -10,7 +10,9 @@
           :key="`${index}_${item.id}`"
         )
           .b-card
-            h2.b-card__title.-t-cut {{item.name}}
+            nuxt-link.b-card__title.-t-cut(
+              :to="{name: 'videos-type', params: {type: item.key}}"
+            ) {{item.name}}
             .-mb-2(
               v-if="item.video"
             )
@@ -19,19 +21,10 @@
                 @click="$router.push({name: 'videos-type', params: {type: item.key}})"
               )
                 PostCardLike(:id="item.video.id")
-            h3.b-card__subtitle.-t-cut(
-              v-html="item.title"
+            nuxt-link.b-card__subtitle.-t-cut(
+              :to="{name: 'videos-type', params: {type: item.key}}"
+              v-html="item.video.title"
             )
-            .-relative
-              h4.b-card__text.-t-cut-lines(
-                v-if="item.video"
-                v-html="item.video.short_content"
-              )
-              .-pos-right-bottom
-                nuxt-link.b-button._icon._bg(
-                  :to="{name: 'videos-type', params: {type: item.key}}"
-                )
-                  .b-icon._arrow-r
 
       h2.-h2.-mt-4 Most commented
       .g-row
