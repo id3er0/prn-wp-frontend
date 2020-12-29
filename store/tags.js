@@ -95,7 +95,6 @@ export const actions = {
     }
   },
   async doSearch(context, value) {
-    console.log({value});
     context.commit('updateField', {
       path: 'totalPages',
       value: 1,
