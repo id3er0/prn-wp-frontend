@@ -42,10 +42,6 @@
 
   &:hover {
     box-shadow: 0 rem(2) rem(12) rgba(248, 75, 148, 0.37);
-
-    .b-card__star {
-      opacity: 1;
-    }
   }
 }
 
@@ -53,7 +49,6 @@
   position: absolute;
   top: rem(4);
   right: rem(4);
-  opacity: 0;
   transition: opacity 0.3s;
 }
 

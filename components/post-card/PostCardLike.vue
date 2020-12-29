@@ -5,7 +5,7 @@
       @click.stop="onClick"
     )
       .b-icon(
-        :class="!_isFavourited ? '_star' : '_star-filled'"
+        :class="!_isFavourited ? '_star-bg' : '_star-filled'"
       )
 </template>
 
