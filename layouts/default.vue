@@ -1,18 +1,26 @@
 <template lang="pug">
   .b-layout
     Header
-    nuxt
+    .b-main
+      .g-container
+        .g-row
+          .g-col._w-4-3
+            nuxt
+          .g-col._w-4-1
+            Sidebar
     Footer
 </template>
 
 <script>
 import Header from '~/components/Header';
+import Sidebar from '@/components/sidebar/Sidebar';
 import Footer from '~/components/Footer';
 import fixVH from '~/utils/fixVH';
 
 export default {
   components: {
     Header,
+    Sidebar,
     Footer,
   },
   mounted() {

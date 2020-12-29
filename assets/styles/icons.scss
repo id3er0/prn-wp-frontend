@@ -16,13 +16,8 @@ $icons: (
   like                         svg  rem(18)  rem(18),
   dislike                      svg  rem(18)  rem(18),
   camera-photo                 svg  rem(18)  rem(18),
+  link                         svg  rem(16)  rem(16),
 );
-
-
-
-
-
-
 
 .b-icon {
   display: block;
@@ -54,6 +49,11 @@ $icons: (
       height: nth($icon, 4);
       background-image: url($filepath + 'icon__' + nth($icon, 1) + '.' + nth($icon, 2));
     }
+  }
+
+  &._s-18 {
+    width: rem(18);
+    height: rem(18);
   }
 }
 

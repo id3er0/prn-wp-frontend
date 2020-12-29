@@ -1,3 +1,22 @@
+.-custom-scrollbar {
+  --thumbBG: #777777;
+  --scrollbarBG: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+
+  &::-webkit-scrollbar {
+    width: rem(7);
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: rem(6);
+    border: rem(3) solid var(--scrollbarBG);
+  }
+}
+
 .g-container {
   margin: 0 auto;
   padding: 0 calc(var(--marginX) * 1rem);

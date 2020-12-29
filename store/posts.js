@@ -51,80 +51,6 @@ export const mutations = {
   },
 };
 
-/**
- * Request posts
- * @param orderBy
- * @param order
- * @param meta_key
- * @param per_page
- * @param page
- * @param slug
- * @returns {Promise<any>}
- */
-const requestPosts = async ({_nuxt, orderBy = 'date', order = 'desc', meta_key, per_page = 1, page = 1, slug}) => {
-  const params = {
-    _embed: true,
-    orderBy,
-    order,
-    per_page,
-    page,
-  };
-
-  if (meta_key) {
-    params.meta_key = meta_key;
-  }
-
-  if (slug) {
-    params.slug = slug;
-  }
-
-  let result;
-  try {
-    result = await _nuxt.$axios.$get('/wp/v2/posts', {
-      params,
-    });
-  } catch (error) {
-    console.log('requestPosts - error:', error);
-  }
-  return result;
-}
-
-const getPostFields = (post) => {
-  if (!post) {
-    return false;
-  }
-
-  const terms = post && post._embedded && post._embedded['wp:term'];
-  const tags = [];
-  if (Array.isArray(terms)) {
-    for (const termArray of terms) {
-      for (const term of termArray) {
-        if (term.taxonomy === 'post_tag') {
-          tags.push({
-            id: term.id,
-            name: term.name,
-            slug: term.slug,
-          });
-        }
-      }
-    }
-  }
-
-  return {
-    id: objectValue(post, 'id'),
-    slug: objectValue(post, 'slug'),
-    title: objectValue(post, 'title.rendered'),
-    text: objectValue(post, 'excerpt.rendered'),
-    preview: objectValue(post, 'video_meta.poster'),
-    likes: objectValue(post, 'video_meta.likes'),
-    dislikes: objectValue(post, 'video_meta.dislikes'),
-    views: objectValue(post, 'video_meta.views'),
-    video_url: objectValue(post, 'video_meta.video_url'),
-    embed_code: objectValue(post, 'video_meta.embed_code'),
-    tags,
-  }
-};
-
 export const actions = {
   async fetchFront(context) {
     context.commit('updateField', {
@@ -273,42 +199,6 @@ export const actions = {
 
     context.commit('updateField', {
       path: 'currentPostLoaded',
-      value: true,
-    });
-  },
-  async fetchTags(context) {
-    context.commit('updateField', {
-      path: 'tagsLoaded',
-      value: false,
-    });
-
-    let items = [];
-
-    const request = (page) => this.$axios.get('/wp/v2/tags', {
-      params: {
-        // page,
-        // per_page: 10,
-        hide_empty: true,
-        orderBy: 'count',
-        order: 'desc',
-      },
-    });
-
-    // const response = await request(1);
-    const totalPages = 1; // response.headers['x-wp-totalpages'];
-
-    for (let page = 1; page <= totalPages; page += 1) {
-      const r = await request(page);
-      items = items.concat(r.data);
-    }
-
-    context.commit('updateField', {
-      path: 'tags',
-      value: items,
-    });
-
-    context.commit('updateField', {
-      path: 'tagsLoaded',
       value: true,
     });
   },

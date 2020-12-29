@@ -1,130 +1,125 @@
 <template lang="pug">
-  .b-main
-    .g-container
-      .g-row
-        .g-col._w-4-3(
-          v-if="currentPostLoaded && getPost"
-        )
-          h1.-h1(
-            v-html="getPost.title"
+  div(
+    v-if="currentPostLoaded && getPost"
+  )
+    h1.-h1(
+      v-html="getPost.title"
+    )
+    .g-row
+      .g-col
+        .b-card
+          .b-card__video(
+            v-if="getPost.video_meta.video_url"
           )
-          .g-row
-            .g-col
-              .b-card
-                .b-card__video(
-                  v-if="getPost.video_meta.video_url"
-                )
-                  ClientOnly
-                    VideoPlayer(
-                      :videoUrl="getPost.video_meta.video_url"
-                    )
-                .b-card__iframe(
-                  v-else-if="getPost.video_meta.embed_code"
-                  v-html="getPost.video_meta.embed_code"
-                )
-                .b-card__panel.-mb-3
-                  .b-buttons(
-                    v-if="getPost.video_meta"
-                  )
-                    button.b-button._icon(type="button")
-                      .b-icon._like._left
-                      span {{getPost.video_meta.likes || 0}}
-                    button.b-button._icon(type="button")
-                      .b-icon._dislike._left
-                      span {{getPost.video_meta.dislikes || 0}}
-                    button.b-button._icon(type="button")
-                      .b-icon._eye._left
-                      span {{getPost.video_meta.views || 0}}
-                    button.b-button._icon(type="button")
-                      .b-icon._comments._left
-                      span {{getPost.video_meta.comments_number || 0}}
-                    button.b-button._icon(type="button" disabled)
-                      .b-icon._camera-photo._left
-                      span Screenshots
-                    button.b-button._icon(type="button" disabled)
-                      .b-icon._share._left
-                      span Share
-
-                .-mb-2(
-                  v-if="getPost.video_meta"
-                )
-                  .b-card__values
-                    div
-                      .-h3.-mt-1 Tags:
-                    div
-                      .b-tags
-                        nuxt-link.b-tag(
-                          v-for="item in getPost.video_meta.tags"
-                          :key="item.id"
-                          :to="{name: 'tag-tag', params: {tag: item.id}}"
-                        ) {{item.name}}
-
-                .b-card__values(
-                  v-if="getPost.content"
-                )
-                  .-h3 Description:
-                  .-text(
-                    v-html="getPost.content"
-                  )
-
-        //
-          h2.-h2.-mt-4 Similar videos
-          .g-row(
-            v-if="getVideos"
+            ClientOnly
+              VideoPlayer(
+                :videoUrl="getPost.video_meta.video_url"
+              )
+          .b-card__iframe(
+            v-else-if="getPost.video_meta.embed_code"
+            v-html="getPost.video_meta.embed_code"
           )
-            .g-col._w-3-1(
-              v-for="(item, index) in getVideos"
-              v-if="index < 6"
-              :key="`${index}_${item.id}`"
+          .b-card__panel.-mb-3
+            .b-buttons(
+              v-if="getPost.video_meta"
             )
-              .b-card
-                .-mb-2
-                  .b-card__image(
-                    :style="{'background-image': `url(${item.video.preview})`}"
-                  )
-                h3.b-card__subtitle(
-                  v-html="item.video.title"
-                )
-                h4.b-card__text(
-                  v-html="item.video.text"
-                )
-                .-t-right
-                  nuxt-link.b-button._icon(
-                    :to="{name: 'video-slug', params: {slug: item.video.slug}}"
-                  )
-                    .b-icon._arrow-r
-        .g-col._w-4-3(
-          v-else-if="!currentPostLoaded"
-        )
-          content-placeholders(:rounded="true")
-            content-placeholders-heading
-            content-placeholders-img
-            content-placeholders-heading
-        .g-col._w-4-1
-          Sidebar
+              button.b-button._icon(type="button")
+                .b-icon._like._left
+                span {{getPost.video_meta.likes || 0}}
+              button.b-button._icon(type="button")
+                .b-icon._dislike._left
+                span {{getPost.video_meta.dislikes || 0}}
+              button.b-button._icon(type="button")
+                .b-icon._eye._left
+                span {{getPost.video_meta.views || 0}}
+              button.b-button._icon(type="button")
+                .b-icon._comments._left
+                span {{getPost.video_meta.comments_number || 0}}
+              button.b-button._icon(type="button" disabled)
+                .b-icon._camera-photo._left
+                span Screenshots
+              button.b-button._icon(type="button" disabled)
+                .b-icon._share._left
+                span Share
+              PostLike(:id="getPost.id")
+
+          .-mb-2(
+            v-if="getPost.video_meta"
+          )
+            .b-card__values
+              div
+                .-h3.-mt-1 Tags:
+              div
+                .b-tags
+                  nuxt-link.b-tag(
+                    v-for="item in getPost.video_meta.tags"
+                    :key="item.id"
+                    :to="{name: 'tag-tag', params: {tag: item.id}}"
+                  ) {{item.name}}
+
+          .b-card__values(
+            v-if="getPost.content"
+          )
+            .-h3 Description:
+            .-text(
+              v-html="getPost.content"
+            )
+
+  //
+    h2.-h2.-mt-4 Similar videos
+    .g-row(
+      v-if="getVideos"
+    )
+      .g-col._w-3-1(
+        v-for="(item, index) in getVideos"
+        v-if="index < 6"
+        :key="`${index}_${item.id}`"
+      )
+        .b-card
+          .-mb-2
+            .b-card__image(
+              :style="{'background-image': `url(${item.video.preview})`}"
+            )
+          h3.b-card__subtitle(
+            v-html="item.video.title"
+          )
+          h4.b-card__text(
+            v-html="item.video.text"
+          )
+          .-t-right
+            nuxt-link.b-button._icon(
+              :to="{name: 'video-slug', params: {slug: item.video.slug}}"
+            )
+              .b-icon._arrow-r
+  div(
+    v-else-if="!currentPostLoaded"
+  )
+    content-placeholders(:rounded="true")
+      content-placeholders-heading
+      content-placeholders-img
+      content-placeholders-heading
 </template>
 
 <script>
 import ClientOnly from 'vue-client-only';
 import VideoPlayer from '@/components/VideoPlayer';
-import Sidebar from '@/components/sidebar/Sidebar';
 import { mapActions, mapGetters } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
 import objectValue from '@/utils/objectValue';
+import PostLike from '@/components/post/PostLike';
 
 export default {
   components: {
+    PostLike,
     ClientOnly,
     VideoPlayer,
-    Sidebar,
   },
   async fetch() {
     await this.fetchPosts({});
     await this.fetchPost({slug: this.$route.params.slug});
-    await this.fetchTags();
   },
   computed: {
-    ...mapFields('data', [
+    ...mapFields('posts', [
       'currentPostLoaded',
       'currentPost',
       'currentPostsLoaded',
@@ -134,10 +129,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions('data', [
+    ...mapActions('posts', [
       'fetchPosts',
       'fetchPost',
-      'fetchTags',
     ]),
   },
 };

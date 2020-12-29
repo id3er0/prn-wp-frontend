@@ -1,64 +1,58 @@
 <template lang="pug">
-  .b-main
-    .g-container
-      .g-row
-        .g-col._w-4-3
-          h1.-h1 {{title}}
-          template(
-            v-if="postsLoaded"
-          )
-            .g-row(
-              v-if="getPosts"
-            )
-              .g-col._w-3-1(
-                v-for="(item, index) in getPosts"
-                :key="`${index}_${item.id}`"
+  div
+    h1.-h1 {{title}}
+    template(
+      v-if="postsLoaded"
+    )
+      .g-row(
+        v-if="getPosts"
+      )
+        .g-col._w-3-1(
+          v-for="(item, index) in getPosts"
+          :key="`${index}_${item.id}`"
+        )
+          .b-card
+            .-mb-2
+              .b-card__image(
+                :style="{'background-image': `url(${item.video_meta.poster})`}"
+                @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"
               )
-                .b-card
-                  .-mb-2
-                    .b-card__image(
-                      :style="{'background-image': `url(${item.video_meta.poster})`}"
-                      @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"
-                    )
-                      PostCardLike(
-                        :id="item.id"
-                        @afterClick="fetchFavourites"
-                      )
-                  h3.b-card__subtitle.-t-cut(
-                    v-html="item.title"
-                  )
-                  .-relative
-                    h4.b-card__text.-t-cut-lines(
-                      v-html="item.short_content"
-                    )
-                    .-pos-right-bottom
-                      nuxt-link.b-button._icon._bg(
-                        :to="{name: 'video-slug', params: {slug: item.slug}}"
-                      )
-                        .b-icon._arrow-r
-            .g-row(
-              v-else
+                PostCardLike(
+                  :id="item.id"
+                  @afterClick="fetchFavourites"
+                )
+            h3.b-card__subtitle.-t-cut(
+              v-html="item.title"
             )
-              .g-col
-                .b-card
-                  h2.b-card__title No videos found
+            .-relative
+              h4.b-card__text.-t-cut-lines(
+                v-html="item.short_content"
+              )
+              .-pos-right-bottom
+                nuxt-link.b-button._icon._bg(
+                  :to="{name: 'video-slug', params: {slug: item.slug}}"
+                )
+                  .b-icon._arrow-r
+      .g-row(
+        v-else
+      )
+        .g-col
+          .b-card
+            h2.b-card__title No videos found
 
-          .g-row(
-            v-else
-          )
-            .g-col._w-3-1(
-              v-for="n in 9"
-              :key="n"
-            )
-              content-placeholders(:rounded="true")
-                content-placeholders-img
-                content-placeholders-heading
-        .g-col._w-4-1
-          Sidebar
+    .g-row(
+      v-else
+    )
+      .g-col._w-3-1(
+        v-for="n in 9"
+        :key="n"
+      )
+        content-placeholders(:rounded="true")
+          content-placeholders-img
+          content-placeholders-heading
 </template>
 
 <script>
-import Sidebar from '@/components/sidebar/Sidebar';
 import PostCardLike from '@/components/post-card/PostCardLike';
 import { mapActions } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
@@ -67,7 +61,6 @@ import objectValue from '@/utils/objectValue';
 export default {
   components: {
     PostCardLike,
-    Sidebar,
   },
   data() {
     return {
@@ -81,7 +74,7 @@ export default {
     });
   },
   computed: {
-    ...mapFields('data', [
+    ...mapFields('posts', [
       'postsLoaded',
       'posts',
     ]),
@@ -90,9 +83,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions('data', [
+    ...mapActions('posts', [
       'fetchPosts',
-      'fetchTags',
     ]),
     fetchFavourites() {
       if (this.$route.params.type === 'favourites') {

@@ -128,6 +128,12 @@
   @extend .b-buttons;
   margin: rem(-4);
 
+  &._max-h {
+    @extend .-custom-scrollbar;
+    max-height: rem(240);
+    overflow: auto;
+  }
+
   > * {
     margin: rem(4);
   }
@@ -153,5 +159,34 @@
     border-bottom: rem(1) solid #DADADA;
     padding-bottom: rem(16);
     margin-bottom: rem(16);
+  }
+}
+
+.b-links {
+  display: flex;
+  flex-direction: column;
+  @extend .-custom-scrollbar;
+  max-height: rem(180);
+  overflow: auto;
+}
+
+.b-link {
+  display: flex;
+  text-decoration: none;
+  color: $color__text;
+
+  &:hover {
+    .b-link__name {
+      text-decoration: underline;
+    }
+  }
+}
+
+.b-link__number {
+  color: #8C8C8C;
+  margin-right: rem(6);
+
+  &:not(:last-child) {
+    margin-bottom: rem(12);
   }
 }
