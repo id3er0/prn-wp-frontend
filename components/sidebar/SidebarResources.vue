@@ -5,13 +5,14 @@
       .-flex-divider
       button.b-button._icon(
         type="button"
-        @click="setShowSearch"
+        @click="_setShowSearch"
       )
         .b-icon._search
     .b-input.-mb-2(
       v-if="showSearch"
     )
       input(
+        ref="input"
         :value="search"
         @input="doSearch($event.target.value)"
       )
@@ -70,6 +71,14 @@ export default {
       'setShowSearch',
       'doSearch',
     ]),
+    _setShowSearch() {
+      this.setShowSearch();
+      this.$nextTick(() => {
+        if (this.showSearch && this.$refs.input) {
+          this.$refs.input.focus();
+        }
+      });
+    },
   },
 };
 </script>
