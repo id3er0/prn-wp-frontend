@@ -1,21 +1,29 @@
 <template lang="pug">
   .b-sidebar__item
-    .-h2.-flex
+    .b-sidebar__title(
+      v-if="!showSearch"
+    )
       span Friendly resources
       .-flex-divider
-      button.b-button._icon(
+      button.b-button._plain._mt(
         type="button"
         @click="_setShowSearch"
       )
         .b-icon._search
-    .b-input.-mb-2(
-      v-if="showSearch"
+    .b-input(
+      v-else
     )
-      input(
+      input.-mr-2(
         ref="input"
         :value="search"
         @input="doSearch($event.target.value)"
+        placeholder="Search by tag"
       )
+      button.b-button._plain._mt(
+        type="button"
+        @click="_setShowSearch"
+      )
+        .b-icon._close
     template(
       v-if="loaded"
     )

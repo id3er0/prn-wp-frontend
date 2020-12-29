@@ -65,6 +65,23 @@
 .b-button {
   @include buttonBase;
 
+  &._plain {
+    min-width: auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    @at-root button#{&}, a#{&} {
+      &:not([disabled]) {
+        &:hover,
+        &:focus {
+          background: transparent;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
   &._icon {
     min-width: auto;
     padding: rem(2);
@@ -89,6 +106,10 @@
 
   &._w-full {
     width: 100%;
+  }
+
+  &._mt {
+    margin-top: rem(4);
   }
 }
 
@@ -162,6 +183,12 @@
   }
 }
 
+.b-sidebar__title {
+  @extend .-h2;
+  display: flex;
+  align-items: flex-start;
+}
+
 .b-links {
   display: flex;
   flex-direction: column;
@@ -192,10 +219,21 @@
 }
 
 .b-input {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: rem(14);
+
   input {
-    width: 100%;
-    border: solid rem(1) #DADADA;
-    border-radius: rem(5);
-    padding: rem(4);
+    flex: 1 1 auto;
+    border: none;
+    border-bottom: solid rem(1) #DADADA;
+    outline: none;
+    padding: 0 0 rem(4);
+    transition: all 0.3s;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: $color__button;
+    }
   }
 }

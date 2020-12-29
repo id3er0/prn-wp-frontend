@@ -3,12 +3,28 @@
   flex-direction: column;
 }
 
+@mixin titleLink() {
+  @at-root button#{&}, a#{&} {
+    &:not([disabled]) {
+      color: $color__text_medium;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 .b-card__title {
   @extend .-h2;
+  @include titleLink;
 }
 
 .b-card__subtitle {
   @extend .-h3;
+  @include titleLink;
 }
 
 .b-card__text {
