@@ -237,3 +237,24 @@
     }
   }
 }
+
+.b-livecams {
+  --rowGap: #{remX(8)};
+  display: flex;
+  flex-wrap: wrap;
+  margin: calc(var(--rowGap) * -0.5rem);
+
+  > * {
+    margin: calc(var(--rowGap) * 0.5rem);
+  }
+}
+
+.b-livecams__item {
+  flex: 0 0 calc((100% / 3 * 1) - (var(--rowGap) * 1rem));
+}
+
+.b-livecams__item-inner {
+  height: 0;
+  padding-bottom: 100%;
+  background: #7a7a7a;
+}
