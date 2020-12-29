@@ -190,3 +190,12 @@
     margin-bottom: rem(12);
   }
 }
+
+.b-input {
+  input {
+    width: 100%;
+    border: solid rem(1) #DADADA;
+    border-radius: rem(5);
+    padding: rem(4);
+  }
+}

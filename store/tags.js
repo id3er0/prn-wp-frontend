@@ -8,6 +8,7 @@ const STATE = immutableMap({
   showMoreLoaded: true,
   data: {},
   totalPages: 1,
+  showSearch: false,
   search: null,
 });
 
@@ -36,18 +37,30 @@ export const actions = {
 
     let items = [];
 
-    const request = (page) => this.$axios.get('/wp/v2/tags', {
-      params: {
+    const request = (page) => {
+      let result;
+      const params = {
         page,
         per_page: 10,
         hide_empty: true,
         orderby: 'count',
         order: 'desc',
-      },
-    });
+      };
 
-    // const response = await request({});
-    const totalPages = context.state.totalPages; // response.headers['x-wp-totalpages'];
+      const search = context.state.search;
+      if (!!search) {
+        params.search = search;
+      }
+
+      try {
+        result = this.$axios.get('/wp/v2/tags', {params});
+      } catch (error) {
+        console.log('fetchTags - error:', error);
+      }
+      return result;
+    }
+
+    const totalPages = context.state.totalPages;
 
     for (let page = 1; page <= totalPages; page += 1) {
       const r = await request(page);
@@ -70,5 +83,27 @@ export const actions = {
       value: context.state.totalPages + 1,
     });
     await context.dispatch('fetchTags', false);
+  },
+  async setShowSearch(context) {
+    const value = !context.state.showSearch;
+    context.commit('updateField', {
+      path: 'showSearch',
+      value,
+    });
+    if (!value) {
+      await context.dispatch('doSearch', '');
+    }
+  },
+  async doSearch(context, value) {
+    console.log({value});
+    context.commit('updateField', {
+      path: 'totalPages',
+      value: 1,
+    });
+    context.commit('updateField', {
+      path: 'search',
+      value,
+    });
+    await context.dispatch('fetchTags', true);
   },
 };

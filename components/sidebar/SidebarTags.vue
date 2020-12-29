@@ -1,6 +1,20 @@
 <template lang="pug">
   .b-sidebar__item
-    .-h2 Most popular tags
+    .-h2.-flex
+      span Most popular tags
+      .-flex-divider
+      button.b-button._icon(
+        type="button"
+        @click="setShowSearch"
+      )
+        .b-icon._search
+    .b-input.-mb-2(
+      v-if="showSearch"
+    )
+      input(
+        :value="search"
+        @input="doSearch($event.target.value)"
+      )
     template(
       v-if="loaded"
     )
@@ -40,13 +54,16 @@ export default {
       'loaded',
       'showMoreLoaded',
       'data',
-      'totalPages',
+      'showSearch',
+      'search',
     ]),
   },
   methods: {
     ...mapActions('tags', [
       'fetchTags',
       'showMore',
+      'setShowSearch',
+      'doSearch',
     ]),
   },
 };
