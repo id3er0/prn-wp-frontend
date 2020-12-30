@@ -16,6 +16,7 @@ import Header from '~/components/Header';
 import Sidebar from '@/components/sidebar/Sidebar';
 import Footer from '~/components/Footer';
 import fixVH from '~/utils/fixVH';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -23,8 +24,16 @@ export default {
     Sidebar,
     Footer,
   },
+  async fetch() {
+    await this.fetchConfig();
+  },
   mounted() {
     fixVH();
+  },
+  methods: {
+    ...mapActions('config', [
+      'fetchConfig',
+    ]),
   },
 };
 </script>

@@ -6,10 +6,7 @@ import trimString from '@/utils/trimString';
 const STATE = immutableMap({
   date: Date.now(),
   loaded: false,
-  data: {
-    path: null,
-    data: [],
-  },
+  data: {},
 });
 
 export const state = () => STATE.toJS();
@@ -29,7 +26,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchLiveCams(context) {
+  async fetchConfig(context) {
     context.commit('updateField', {
       path: 'loaded',
       value: false,
@@ -37,9 +34,9 @@ export const actions = {
 
     let result;
     try {
-      result = await this.$axios.$get('/custom/v2/livecams/');
+      result = await this.$axios.$get('/custom/v2/config/');
     } catch (error) {
-      console.log('fetchLiveCams - error:', error);
+      console.log('fetchConfig - error:', error);
     }
 
     context.commit('updateField', {

@@ -27,10 +27,10 @@
     template(
       v-if="loaded"
     )
-      template(v-if="Array.isArray(getData) && getData.length > 0")
+      template(v-if="Array.isArray(getResources) && getResources.length > 0")
         .b-links
           a.b-link(
-            v-for="(item, index) in getData"
+            v-for="(item, index) in getResources"
             :key="index"
             v-if="(!showMore && index < 3) || showMore"
             :href="item.link"
@@ -58,24 +58,21 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'SidebarResources',
-  async fetch() {
-    await this.fetchResources();
-  },
   computed: {
-    ...mapFields('resources', [
+    ...mapFields('config', [
       'loaded',
-      'data',
+    ]),
+    ...mapFields('resources', [
       'showMore',
       'showSearch',
       'search',
     ]),
     ...mapGetters('resources', [
-      'getData',
+      'getResources',
     ]),
   },
   methods: {
     ...mapActions('resources', [
-      'fetchResources',
       'setShowSearch',
       'doSearch',
     ]),
