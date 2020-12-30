@@ -44,7 +44,7 @@
               PostLike(:id="getPost.id")
 
           .-mb-3(
-            v-if="getPost.video_meta"
+            v-if="getPost.video_meta && Array.isArray(getPost.video_meta.tags) && getPost.video_meta.tags.length > 0"
           )
             .b-card__values
               div
