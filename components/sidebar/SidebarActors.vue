@@ -3,7 +3,7 @@
     .b-sidebar__title(
       v-if="!showSearch"
     )
-      span Pornstars
+      span {{getTitle}}
       .-flex-divider
       button.b-button._plain._mt(
         type="button"
@@ -61,6 +61,7 @@
 <script>
 import { mapFields } from 'vuex-map-fields';
 import { mapActions } from 'vuex';
+import objectValue from '@/utils/objectValue';
 
 export default {
   name: 'SidebarActors',
@@ -68,6 +69,12 @@ export default {
     await this.fetchActors();
   },
   computed: {
+    ...mapFields('config', [
+      'data.sidebar',
+    ]),
+    getTitle() {
+      return objectValue(this.sidebar, 'actors.title', 'Actors');
+    },
     ...mapFields('actors', [
       'loaded',
       'showMoreLoaded',

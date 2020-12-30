@@ -15,7 +15,7 @@ export const state = () => STATE.toJS();
 export const getters = {
   getField,
   getResources: (state, getters, rootState) => {
-    const resources = objectValue(rootState, 'config.data.resources');
+    const resources = objectValue(rootState, 'config.data.sidebar.resources.items');
     if (!Array.isArray(resources)) {
       return false;
     }

@@ -3,7 +3,7 @@
     .b-sidebar__title(
       v-if="!showSearch"
     )
-      span Friendly resources
+      span {{getTitle}}
       .-flex-divider
       button.b-button._plain._mt(
         type="button"
@@ -55,13 +55,18 @@
 <script>
 import { mapFields } from 'vuex-map-fields';
 import { mapActions, mapGetters } from 'vuex';
+import objectValue from '@/utils/objectValue';
 
 export default {
   name: 'SidebarResources',
   computed: {
     ...mapFields('config', [
       'loaded',
+      'data.sidebar',
     ]),
+    getTitle() {
+      return objectValue(this.sidebar, 'resources.title', 'Resources');
+    },
     ...mapFields('resources', [
       'showMore',
       'showSearch',

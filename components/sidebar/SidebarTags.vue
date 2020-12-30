@@ -3,7 +3,7 @@
     .b-sidebar__title(
       v-if="!showSearch"
     )
-      span Most popular tags
+      span {{getTitle}}
       .-flex-divider
       button.b-button._plain._mt(
         type="button"
@@ -52,6 +52,7 @@
 <script>
 import { mapFields } from 'vuex-map-fields';
 import { mapActions } from 'vuex';
+import objectValue from '@/utils/objectValue';
 
 export default {
   name: 'SidebarTags',
@@ -66,6 +67,12 @@ export default {
       'showSearch',
       'search',
     ]),
+    ...mapFields('config', [
+      'data.sidebar',
+    ]),
+    getTitle() {
+      return objectValue(this.sidebar, 'tags.title', 'Tags');
+    },
   },
   methods: {
     ...mapActions('tags', [

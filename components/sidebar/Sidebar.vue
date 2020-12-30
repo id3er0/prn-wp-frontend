@@ -13,8 +13,6 @@ import SidebarTags from '@/components/sidebar/SidebarTags';
 import SidebarActors from '@/components/sidebar/SidebarActors';
 import SidebarLiveCams from '@/components/sidebar/SidebarLiveCams';
 import SidebarResources from '@/components/sidebar/SidebarResources';
-import { mapActions } from 'vuex';
-import { mapFields } from 'vuex-map-fields';
 
 export default {
   name: 'Sidebar',
