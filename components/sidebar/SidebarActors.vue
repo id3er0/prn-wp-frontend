@@ -3,7 +3,7 @@
     .b-sidebar__title(
       v-if="!showSearch"
     )
-      span Friendly resources
+      span Pornstars
       .-flex-divider
       button.b-button._plain._mt(
         type="button"
@@ -17,7 +17,7 @@
         ref="input"
         :value="search"
         @input="doSearch($event.target.value)"
-        placeholder="Search by tag"
+        placeholder="Search by name"
       )
       button.b-button._plain._mt(
         type="button"
@@ -27,24 +27,30 @@
     template(
       v-if="loaded"
     )
-      template(v-if="Array.isArray(getData) && getData.length > 0")
-        .b-links
-          a.b-link(
-            v-for="(item, index) in getData"
-            :key="index"
-            v-if="(!showMore && index < 3) || showMore"
-            :href="item.link"
-            target="_blank"
+      .-mb-2(
+        v-if="Array.isArray(data)"
+      )
+        .b-tags._max-h
+          nuxt-link.b-link(
+            v-for="(item, index) in data"
+            :key="item.id"
+            :to="{name: 'actor-slug', params: {slug: item.slug}}"
           )
-            .b-link__number._mr {{index + 1}}.
-            .b-link__name {{item.name}}
-            .-flex-divider
-            .b-icon._link
-        button.b-button._w-full(
-          v-if="!showMore"
-          @click="showMore = !showMore"
-        ) Show more
-      div(v-else) No resources found
+            | <span class="b-link__name _mr">{{item.name}}</span>
+            template(
+              v-if="index + 1 < data.length"
+            )
+              | <span class="b-link__number">({{item.count}})</span>,
+            template(
+              v-else
+            )
+              | <span class="b-link__number">({{item.count}})</span>
+      button.b-button._w-full(
+        @click="showMore"
+        :disabled="!showMoreLoaded"
+      )
+        template(v-if="showMoreLoaded") Show more
+        template(v-else) Loading...
     content-placeholders(
       v-else
       :rounded="true"
@@ -54,28 +60,26 @@
 
 <script>
 import { mapFields } from 'vuex-map-fields';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
-  name: 'SidebarResources',
+  name: 'SidebarActors',
   async fetch() {
-    await this.fetchResources();
+    await this.fetchActors();
   },
   computed: {
-    ...mapFields('resources', [
+    ...mapFields('actors', [
       'loaded',
+      'showMoreLoaded',
       'data',
-      'showMore',
       'showSearch',
       'search',
     ]),
-    ...mapGetters('resources', [
-      'getData',
-    ]),
   },
   methods: {
-    ...mapActions('resources', [
-      'fetchResources',
+    ...mapActions('actors', [
+      'fetchActors',
+      'showMore',
       'setShowSearch',
       'doSearch',
     ]),
