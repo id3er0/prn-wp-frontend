@@ -1,0 +1,36 @@
+
+
+$margins: (
+  '0': 0,
+  '1': 4,
+  '2': 8,
+  '3': 16,
+  '4': 32,
+  '5': 64,
+);
+
+@each $name, $size in $margins {
+  .-ma-#{$name} {
+    margin: rem($size) !important;
+  }
+  .-my-#{$name} {
+    margin-top: rem($size) !important;
+    margin-bottom: rem($size) !important;
+  }
+  .-mx-#{$name} {
+    margin-right: rem($size) !important;
+    margin-left: rem($size) !important;
+  }
+  .-mt-#{$name} {
+    margin-top: rem($size) !important;
+  }
+  .-mr-#{$name} {
+    margin-right: rem($size) !important;
+  }
+  .-mb-#{$name} {
+    margin-bottom: rem($size) !important;
+  }
+  .-ml-#{$name} {
+    margin-left: rem($size) !important;
+  }
+}

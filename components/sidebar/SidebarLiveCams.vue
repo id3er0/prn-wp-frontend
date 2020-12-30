@@ -4,18 +4,15 @@
     .b-livecams(
       v-if="loaded"
     )
-      template(
-        v-if="Array.isArray(data)"
+      .b-livecams__item(
+        v-for="(item, index) in data"
+        :key="index"
       )
-        .b-livecams__item(
-          v-for="(item, index) in data"
-          :key="index"
+        a.b-livecams__item-inner(
+          :style="{'background-image': `url(${path}${item.image})`}"
+          :href="item.link"
+          target="_blank"
         )
-          a.b-livecams__item-inner(
-            :style="{'background-image': `url(${path}${item.image})`}"
-            :href="item.link"
-            target="_blank"
-          )
     content-placeholders(
       v-else
       :rounded="true"

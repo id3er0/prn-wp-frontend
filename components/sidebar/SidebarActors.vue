@@ -13,7 +13,7 @@
     .b-input(
       v-else
     )
-      input.-mr-2(
+      input.-mr-3(
         ref="input"
         :value="search"
         @input="doSearch($event.target.value)"
@@ -27,7 +27,7 @@
     template(
       v-if="loaded"
     )
-      .-mb-2(
+      .-mb-3(
         v-if="Array.isArray(data)"
       )
         .b-tags._max-h
@@ -36,7 +36,7 @@
             :key="item.id"
             :to="{name: 'actor-slug', params: {slug: item.slug}}"
           )
-            | <span class="b-link__name _mr">{{item.name}}</span>
+            | <span class="b-link__name -mr-1">{{item.name}}</span>
             template(
               v-if="index + 1 < data.length"
             )

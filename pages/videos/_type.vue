@@ -12,7 +12,7 @@
           :key="`${index}_${item.id}`"
         )
           .b-card
-            .-mb-2
+            .-mb-3
               .b-card__image(
                 :style="{'background-image': `url(${item.video_meta.poster})`}"
                 @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"

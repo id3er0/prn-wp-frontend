@@ -19,7 +19,7 @@
             v-else-if="getPost.video_meta.embed_code"
             v-html="getPost.video_meta.embed_code"
           )
-          .b-card__panel.-mb-3
+          .b-card__panel.-mb-4
             .b-buttons(
               v-if="getPost.video_meta"
             )
@@ -43,12 +43,12 @@
                 span Share
               PostLike(:id="getPost.id")
 
-          .-mb-2(
+          .-mb-3(
             v-if="getPost.video_meta"
           )
             .b-card__values
               div
-                .-h3.-mt-1 Tags:
+                .-h3.-mt-2 Tags:
               div
                 .b-tags
                   nuxt-link.b-tag(
@@ -66,7 +66,7 @@
             )
 
   //
-    h2.-h2.-mt-4 Similar videos
+    h2.-h2.-mt-5 Similar videos
     .g-row(
       v-if="getVideos"
     )
@@ -76,7 +76,7 @@
         :key="`${index}_${item.id}`"
       )
         .b-card
-          .-mb-2
+          .-mb-3
             .b-card__image(
               :style="{'background-image': `url(${item.video.preview})`}"
             )

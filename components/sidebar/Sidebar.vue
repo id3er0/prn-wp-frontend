@@ -1,10 +1,10 @@
 <template lang="pug">
   aside.b-sidebar
-    ClientOnly
-      SidebarTags
-      SidebarActors
-      SidebarLiveCams
-      SidebarResources
+    //ClientOnly
+    SidebarTags
+    SidebarActors
+    SidebarLiveCams
+    SidebarResources
 </template>
 
 <script>

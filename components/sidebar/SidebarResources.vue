@@ -13,7 +13,7 @@
     .b-input(
       v-else
     )
-      input.-mr-2(
+      input.-mr-3(
         ref="input"
         :value="search"
         @input="doSearch($event.target.value)"
@@ -36,7 +36,7 @@
             :href="item.link"
             target="_blank"
           )
-            .b-link__number._mr {{index + 1}}.
+            .b-link__number.-mr-1 {{index + 1}}.
             .b-link__name {{item.name}}
             .-flex-divider
             .b-icon._link
