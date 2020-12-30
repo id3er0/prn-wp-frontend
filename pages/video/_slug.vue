@@ -118,7 +118,20 @@ export default {
     await this.fetchPosts({});
     await this.fetchPost({slug: this.$route.params.slug});
   },
+  head() {
+    const name = objectValue(this, 'header.name', '');
+    const title = objectValue(this, 'getPost.title', '');
+    return {
+      title: `${title} | ${name}`,
+      meta: [
+        {hid: 'description', name: 'description', content: title},
+      ],
+    };
+  },
   computed: {
+    ...mapFields('config', [
+      'data.header',
+    ]),
     ...mapFields('posts', [
       'currentPostLoaded',
       'currentPost',

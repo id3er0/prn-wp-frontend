@@ -1,6 +1,8 @@
 <template lang="pug">
   div
-    h1.-h1 Project title
+    h1.-h1(
+      v-if="header && header.name"
+    ) {{header.name}}
     template(
       v-if="frontPostsLoaded && frontPosts"
     )
@@ -78,6 +80,7 @@
 
 <script>
 import PostCardLike from '@/components/post-card/PostCardLike';
+import objectValue from '~/utils/objectValue';
 import { mapActions, mapGetters } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
 
@@ -88,15 +91,30 @@ export default {
   async fetch() {
     await this.fetchFront();
   },
-  methods: {
-    ...mapActions('posts', [
-      'fetchFront',
-    ]),
+  head() {
+    const title = objectValue(this, 'pages.home.meta.title');
+    const name = objectValue(this, 'header.name', '');
+    const description = objectValue(this, 'pages.home.meta.description');
+    return {
+      title: `${title} | ${name}`,
+      meta: [
+        {hid: 'description', name: 'description', content: description},
+      ],
+    };
   },
   computed: {
+    ...mapFields('config', [
+      'data.header',
+      'data.pages',
+    ]),
     ...mapFields('posts', [
       'frontPostsLoaded',
       'frontPosts',
+    ]),
+  },
+  methods: {
+    ...mapActions('posts', [
+      'fetchFront',
     ]),
   },
 };

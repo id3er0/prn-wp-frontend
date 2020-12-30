@@ -68,12 +68,29 @@ export default {
     };
   },
   async fetch() {
-    this.title = this.$route.params.type;
+    const type = this.$route.params.type;
+    this.title = objectValue(this, `pages.videos.${type}.meta.title`) || type;
     await this.fetchPosts({
-      type: this.$route.params.type,
+      type,
     });
   },
+  head() {
+    const type = this.$route.params.type;
+    const title = objectValue(this, `pages.videos.${type}.meta.title`);
+    const name = objectValue(this, 'header.name', '');
+    const description = objectValue(this, `pages.videos.${type}.meta.description`);
+    return {
+      title: `${title} | ${name}`,
+      meta: [
+        {hid: 'description', name: 'description', content: description},
+      ],
+    };
+  },
   computed: {
+    ...mapFields('config', [
+      'data.header',
+      'data.pages',
+    ]),
     ...mapFields('posts', [
       'postsLoaded',
       'posts',
