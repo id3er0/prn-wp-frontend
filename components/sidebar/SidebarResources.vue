@@ -28,7 +28,7 @@
       v-if="loaded"
     )
       template(v-if="Array.isArray(getResources) && getResources.length > 0")
-        .b-links
+        .b-links._max-h
           a.b-link(
             v-for="(item, index) in getResources"
             :key="index"

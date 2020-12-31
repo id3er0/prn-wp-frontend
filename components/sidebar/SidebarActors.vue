@@ -75,7 +75,7 @@ export default {
     getTitle() {
       return objectValue(this.sidebar, 'actors.title', 'Actors');
     },
-    ...mapFields('actors', [
+    ...mapFields('sidebar/actors', [
       'loaded',
       'showMoreLoaded',
       'data',
@@ -84,7 +84,7 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions('actors', [
+    ...mapActions('sidebar/actors', [
       'fetchActors',
       'showMore',
       'setShowSearch',

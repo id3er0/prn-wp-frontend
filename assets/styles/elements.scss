@@ -212,8 +212,11 @@
   display: flex;
   flex-direction: column;
   @extend .-custom-scrollbar;
-  max-height: rem(180);
-  overflow: auto;
+
+  &._max-h {
+    max-height: rem(180);
+    overflow: auto;
+  }
 }
 
 .b-link {

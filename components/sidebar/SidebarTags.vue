@@ -60,7 +60,7 @@ export default {
     await this.fetchTags();
   },
   computed: {
-    ...mapFields('tags', [
+    ...mapFields('sidebar/tags', [
       'loaded',
       'showMoreLoaded',
       'data',
@@ -75,7 +75,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('tags', [
+    ...mapActions('sidebar/tags', [
       'fetchTags',
       'showMore',
       'setShowSearch',

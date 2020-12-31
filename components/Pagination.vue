@@ -18,7 +18,7 @@
       :to="to(nextPage)"
     ) Next
     nuxt-link.b-pagination__button(
-      v-if="pagesArray.length < pagesAmount &&currentPage < pagesAmount"
+      v-if="pagesArray.length < pagesAmount && currentPage < pagesAmount"
       :to="to(pagesAmount)"
     ) Last page
 </template>
@@ -27,16 +27,12 @@
 export default {
   name: 'Pagination',
   props: {
-    total: Number,
-    perPage: {
+    pagesAmount: {
       type: Number,
-      default: 15,
+      default: 1,
     },
   },
   computed: {
-    pagesAmount() {
-      return Math.ceil(this.total / this.perPage);
-    },
     pagesArray() {
       const rangeStart = this.currentPage > 1
         ? this.currentPage - 2

@@ -43,8 +43,7 @@
 
           Pagination(
             v-if="showPagination"
-            :total="totalPages"
-            :perPage="15"
+            :pagesAmount="totalPages"
           )
       .g-row(
         v-else

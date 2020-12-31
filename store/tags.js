@@ -5,11 +5,8 @@ import objectValue from '@/utils/objectValue';
 const STATE = immutableMap({
   date: Date.now(),
   loaded: false,
-  showMoreLoaded: true,
-  data: {},
+  items: [],
   totalPages: 1,
-  showSearch: false,
-  search: null,
 });
 
 export const state = () => STATE.toJS();
@@ -29,80 +26,49 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchTags(context, showLoading = true) {
+  async fetchTags(context, {type = 'tags', page = 1, per_page = 100}) {
     context.commit('updateField', {
-      path: showLoading ? 'loaded' : 'showMoreLoaded',
+      path: 'loaded',
       value: false,
     });
-
-    let items = [];
 
     const request = (page) => {
       let result;
       const params = {
         page,
-        per_page: 10,
+        per_page,
         hide_empty: true,
         orderby: 'count',
         order: 'desc',
       };
 
-      const search = context.state.search;
-      if (!!search) {
-        params.search = search;
-      }
-
       try {
-        result = this.$axios.get('/wp/v2/tags', {params});
+        result = this.$axios.get(`/wp/v2/${type}`, {params});
       } catch (error) {
         console.log('fetchTags - error:', error);
       }
       return result;
     }
 
-    const totalPages = context.state.totalPages;
-
-    for (let page = 1; page <= totalPages; page += 1) {
-      const r = await request(page);
-      items = items.concat(r.data);
-    }
+    const response = await request(page);
 
     context.commit('updateField', {
-      path: 'data',
-      value: items,
+      path: 'items',
+      value: objectValue(response, 'data'),
+    });
+
+    const totalPagesKey = 'x-wp-totalpages';
+    let totalPages = objectValue(response, `headers.${totalPagesKey}`, 0);
+    totalPages = parseInt(totalPages);
+    console.log({totalPages});
+    context.commit('updateField', {
+      path: 'totalPages',
+      value: totalPages,
     });
 
     context.commit('updateField', {
-      path: showLoading ? 'loaded' : 'showMoreLoaded',
+      path: 'loaded',
       value: true,
     });
-  },
-  async showMore(context) {
-    context.commit('updateField', {
-      path: 'totalPages',
-      value: context.state.totalPages + 1,
-    });
-    await context.dispatch('fetchTags', false);
-  },
-  async setShowSearch(context) {
-    const value = !context.state.showSearch;
-    context.commit('updateField', {
-      path: 'showSearch',
-      value,
-    });
-    if (!value) {
-      await context.dispatch('doSearch', '');
-    }
-  },
-  async doSearch(context, value) {
-    context.commit('updateField', {
-      path: 'totalPages',
-      value: 1,
-    });
-    context.commit('updateField', {
-      path: 'search',
-      value,
-    });
-    await context.dispatch('fetchTags', true);
   },
 };

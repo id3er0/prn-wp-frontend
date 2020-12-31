@@ -153,7 +153,7 @@ export const actions = {
       return result;
     }
 
-    const response = (await requestPosts(page));
+    const response = await requestPosts(page);
 
     context.commit('updateField', {
       path: 'posts',

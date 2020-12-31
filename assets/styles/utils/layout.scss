@@ -111,3 +111,9 @@
   right: 0;
   bottom: rem(16);
 }
+
+@include for-width(+tablet-m) {
+  .-columns {
+    columns: 4;
+  }
+}
