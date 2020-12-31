@@ -17,10 +17,12 @@
           .g-col._w-3-1(
             v-for="(item, index) in getPosts"
             :key="`${index}_${item.id}`"
+            v-if="item"
           )
             .b-card
               .-mb-3
                 .b-card__image(
+                  v-if="item.video_meta && item.video_meta.poster"
                   :style="{'background-image': `url(${item.video_meta.poster})`}"
                   @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"
                 )
@@ -155,7 +157,7 @@ export default {
       'totalPages',
     ]),
     getPosts() {
-      return this.posts;
+      return Array.isArray(this.posts) && this.posts;
     },
     showPagination() {
       return this.type !== 'favourites';
