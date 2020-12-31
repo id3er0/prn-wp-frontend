@@ -97,7 +97,7 @@ export const actions = {
       value: true,
     });
   },
-  async fetchPosts(context, {type = 'latest', tag, page = 1}) {
+  async fetchPosts(context, {type = 'latest', page = 1, taxonomy}) {
     context.commit('updateField', {
       path: 'postsLoaded',
       value: false,
@@ -136,8 +136,10 @@ export const actions = {
         ids,
       };
 
-      if (tag) {
-        params.tags = tag;
+      if (taxonomy) {
+        params.type = 'taxonomy_slug';
+        params.taxonomy_name = taxonomy.name;
+        params.taxonomy_slug = taxonomy.slug;
       }
 
       let result;
@@ -155,10 +157,7 @@ export const actions = {
 
     context.commit('updateField', {
       path: 'posts',
-      value: {
-        ...context.posts,
-        [type]: objectValue(response, 'data.posts'),
-      },
+      value: objectValue(response, 'data.posts'),
     });
 
     let totalPosts = objectValue(response, 'data.total', 0);
@@ -183,6 +182,7 @@ export const actions = {
     try {
       result = await this.$axios.$get('/custom/v2/posts', {
         params: {
+          type: 'by_slug',
           slug,
         },
       });

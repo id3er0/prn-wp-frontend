@@ -34,7 +34,7 @@
           nuxt-link.b-link(
             v-for="(item, index) in data"
             :key="item.id"
-            :to="{name: 'actor-slug', params: {slug: item.slug}}"
+            :to="{name: 'name-slug-page', params: {slug: item.slug, page: 1}}"
           )
             | <span class="b-link__name -mr-1">{{item.name}}</span>
             template(

@@ -34,7 +34,7 @@
           nuxt-link.b-tag(
             v-for="item in data"
             :key="item.id"
-            :to="{name: 'tag-tag', params: {tag: item.id}}"
+            :to="{name: 'tag-slug-page', params: {slug: item.slug, page: 1}}"
           ) {{item.name}}
       button.b-button._w-full(
         @click="showMore"
