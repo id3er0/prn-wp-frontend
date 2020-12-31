@@ -2,7 +2,7 @@ import { Map as immutableMap } from 'immutable';
 import { getField, updateField } from 'vuex-map-fields';
 // import { debounce, throttle } from 'throttle-debounce';
 // import ky from 'ky';
-import objectValue from '~/utils/objectValue';
+import objectValue from '@/utils/objectValue';
 
 const STATE = immutableMap({
   date: Date.now(),

@@ -103,7 +103,7 @@ module.exports = {
     },
   },
   plugins: [
-    {src: '~/plugins/content-placeholders.client.js'},
+    {src: '@/plugins/content-placeholders.client.js'},
   ],
   modules: [
     '@nuxtjs/axios',

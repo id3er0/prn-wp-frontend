@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import Header from '~/components/Header';
+import Header from '@/components/Header';
 import Sidebar from '@/components/sidebar/Sidebar';
-import Footer from '~/components/Footer';
-import fixVH from '~/utils/fixVH';
+import Footer from '@/components/Footer';
+import fixVH from '@/utils/fixVH';
 import { mapActions } from 'vuex';
 
 export default {
