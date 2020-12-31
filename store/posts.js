@@ -8,6 +8,7 @@ const STATE = immutableMap({
   frontPosts: [],
   postsLoaded: false,
   posts: {},
+  totalPages: 1,
   currentPostLoaded: false,
   currentPost: {},
   tagsLoaded: false,
@@ -70,20 +71,20 @@ export const actions = {
         {
           name: 'Latest movies',
           key: 'latest',
-          video: objectValue(result, 'latest.0'),
+          video: objectValue(result, 'latest.posts.0'),
         },
         {
           name: 'Most rated',
           key: 'most-rated',
-          video: objectValue(result, 'mostRated.0'),
+          video: objectValue(result, 'mostRated.posts.0'),
         },
         {
           name: 'Most viewed',
           key: 'most-viewed',
-          video: objectValue(result, 'mostViewed.0'),
+          video: objectValue(result, 'mostViewed.posts.0'),
         },
       ],
-      mostCommented: objectValue(result, 'mostCommented'),
+      mostCommented: objectValue(result, 'mostCommented.posts'),
     };
 
     context.commit('updateField', {
@@ -96,13 +97,12 @@ export const actions = {
       value: true,
     });
   },
-  async fetchPosts(context, {type = 'latest', tag}) {
+  async fetchPosts(context, {type = 'latest', tag, page = 1}) {
     context.commit('updateField', {
       path: 'postsLoaded',
       value: false,
     });
 
-    let posts = [];
     let ids = [];
     let per_page = 15;
 
@@ -151,20 +151,21 @@ export const actions = {
       return result;
     }
 
-    // const responsePosts = await requestPosts(1);
-    const totalPages = 1; // responsePosts.headers['x-wp-totalpages'];
-
-    for (let page = 1; page <= totalPages; page += 1) {
-      const addPosts = await requestPosts(page);
-      posts = posts.concat(addPosts.data);
-    }
+    const response = (await requestPosts(page));
 
     context.commit('updateField', {
       path: 'posts',
       value: {
         ...context.posts,
-        [type]: posts,
+        [type]: objectValue(response, 'data.posts'),
       },
+    });
+
+    let totalPosts = objectValue(response, 'data.total', 0);
+    let totalPages = Math.ceil(totalPosts / per_page);
+    context.commit('updateField', {
+      path: 'totalPages',
+      value: totalPages,
     });
 
     context.commit('updateField', {
@@ -193,7 +194,7 @@ export const actions = {
       path: 'currentPost',
       value: {
         ...context.currentPost,
-        [slug]: objectValue(result, '0'),
+        [slug]: objectValue(result, 'posts.0'),
       },
     });
 

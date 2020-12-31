@@ -13,18 +13,18 @@
         )
           .b-card
             nuxt-link.b-card__title.-t-cut(
-              :to="{name: 'videos-type', params: {type: item.key}}"
+              :to="{name: 'videos-type-page', params: {type: item.key}}"
             ) {{item.name}}
             .-mb-3(
               v-if="item.video"
             )
               .b-card__image(
                 :style="{'background-image': `url(${item.video.video_meta.poster})`}"
-                @click="$router.push({name: 'videos-type', params: {type: item.key}})"
+                @click="$router.push({name: 'videos-type-page', params: {type: item.key}})"
               )
                 PostCardLike(:id="item.video.id")
             nuxt-link.b-card__subtitle.-t-cut.-mb-0(
-              :to="{name: 'videos-type', params: {type: item.key}}"
+              :to="{name: 'videos-type-page', params: {type: item.key}}"
               v-html="item.video.title"
             )
 
