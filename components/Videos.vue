@@ -41,10 +41,10 @@
                   )
                     .b-icon._arrow-r
 
-          Pagination(
-            v-if="showPagination"
-            :pagesAmount="totalPages"
-          )
+        Pagination(
+          v-if="showPagination"
+          :pagesAmount="totalPages"
+        )
       .g-row(
         v-else
       )
