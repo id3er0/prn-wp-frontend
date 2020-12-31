@@ -14,10 +14,10 @@
         v-if="items"
       )
         .-columns
-          .b-link(
+          nuxt-link.b-link(
             v-for="(item, index) in items"
             :key="`${index}_${item.id}`"
-            :to="{name: 'tag-slug-page', params: {slug: item.slug, page: 1}}"
+            :to="{name: routeName, params: {slug: item.slug, page: 1}}"
           )
             .b-link__name.-mr-1 {{item.name}}
             .b-link__number ({{item.count}})
@@ -64,6 +64,7 @@ export default {
       title: null,
       type: null,
       page: null,
+      routeName: null,
     };
   },
   async fetch() {
@@ -71,6 +72,9 @@ export default {
       ? 'actors'
       : 'tags';
     this.page = this.$route.params.page;
+    this.routeName = this.type === 'actors'
+      ? 'name-slug-page'
+      : 'tag-slug-page';
     if (typeof this.page === 'undefined') {
       this.$router.push({params: {page: '1'}});
     }
