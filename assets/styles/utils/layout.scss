@@ -112,8 +112,10 @@
   bottom: rem(16);
 }
 
-@include for-width(+tablet-m) {
-  .-columns {
+.-columns {
+  columns: 2;
+
+  @include for-width(+tablet-m) {
     columns: 4;
   }
 }

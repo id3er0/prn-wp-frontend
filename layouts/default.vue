@@ -1,12 +1,13 @@
 <template lang="pug">
   .b-layout
-    Header
+    Header(:class="{'-show-on-tablet-m': showSmallMenu}")
+    HeaderSmall(v-if="showSmallMenu")
     .b-main
       .g-container
         .g-row
           .g-col._w-4-3
             nuxt
-          .g-col._w-4-1
+          .g-col._w-4-1.-show-on-tablet-m
             Sidebar
     Footer
 </template>
@@ -17,9 +18,12 @@ import Sidebar from '@/components/sidebar/Sidebar';
 import Footer from '@/components/Footer';
 import fixVH from '@/utils/fixVH';
 import { mapActions } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
+import HeaderSmall from '@/components/HeaderSmall';
 
 export default {
   components: {
+    HeaderSmall,
     Header,
     Sidebar,
     Footer,
@@ -30,19 +34,26 @@ export default {
   mounted() {
     fixVH();
   },
+  computed: {
+    ...mapFields('smallMenu', [
+      'showSmallMenu',
+    ]),
+  },
   methods: {
     ...mapActions('config', [
       'fetchConfig',
     ]),
+  },
+  watch: {
+    $route() {
+      this.showSmallMenu = false;
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .b-layout {
-  min-width: rem(320);
-  max-width: rem(1650);
-  margin: 0 auto;
 }
 </style>
 

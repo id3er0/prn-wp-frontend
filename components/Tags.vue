@@ -4,9 +4,7 @@
       | {{title}}
       template(
         v-if="page > 1"
-      )
-        |
-        | {{page}}
+      ) : Page {{page}}
     template(
       v-if="loaded"
     )

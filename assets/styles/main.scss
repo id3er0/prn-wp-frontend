@@ -33,3 +33,16 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.b-layout {
+  display: flex;
+  flex-direction: column;
+  @include set100vh;
+  min-width: rem(320);
+  max-width: rem(1650);
+  margin: 0 auto;
+}
+
+.b-main {
+  flex: 1 1 auto;
+}
