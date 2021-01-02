@@ -54,7 +54,7 @@
                   nuxt-link.b-tag(
                     v-for="item in getPost.video_meta.tags"
                     :key="item.id"
-                    :to="{name: 'tag-tag', params: {tag: item.id}}"
+                    :to="{name: 'tag-slug-page', params: {slug: item.slug, page: 1}}"
                   ) {{item.name}}
 
           .b-card__values(
