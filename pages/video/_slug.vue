@@ -65,32 +65,6 @@
               v-html="getPost.content"
             )
 
-  //
-    h2.-h2.-mt-5 Similar videos
-    .g-row(
-      v-if="getVideos"
-    )
-      .g-col._w-3-1(
-        v-for="(item, index) in getVideos"
-        v-if="index < 6"
-        :key="`${index}_${item.id}`"
-      )
-        .b-card
-          .-mb-3
-            .b-card__image(
-              :style="{'background-image': `url(${item.video.preview})`}"
-            )
-          h3.b-card__subtitle(
-            v-html="item.video.title"
-          )
-          h4.b-card__text(
-            v-html="item.video.text"
-          )
-          .-t-right
-            nuxt-link.b-button._icon(
-              :to="{name: 'video-slug', params: {slug: item.video.slug}}"
-            )
-              .b-icon._arrow-r
   div(
     v-else-if="!currentPostLoaded"
   )

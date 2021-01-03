@@ -17,7 +17,7 @@
             :key="`${index}_${item.id}`"
             :to="{name: routeName, params: {slug: item.slug, page: 1}}"
           )
-            .b-link__name.-mr-1 {{item.name}}
+            h2.-t-inherit.-mr-1 {{item.name}}
             .b-link__number ({{item.count}})
 
         Pagination.-mt-4(

@@ -12,9 +12,10 @@
           :key="`${index}_${item.id}`"
         )
           .b-card
-            nuxt-link.b-card__title.-t-cut(
-              :to="{name: 'videos-type-page', params: {type: item.key, page: 1}}"
-            ) {{item.name}}
+            h2.b-card__title
+              nuxt-link.-t-cut(
+                :to="{name: 'videos-type-page', params: {type: item.key, page: 1}}"
+              ) {{item.name}}
             .-mb-3(
               v-if="item.video"
             )

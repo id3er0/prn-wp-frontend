@@ -1,6 +1,6 @@
 <template lang="pug">
   .b-sidebar__item
-    .-h2 {{getTitle}}
+    h2.-h2 {{getTitle}}
     .b-livecams(
       v-if="loaded"
     )

@@ -13,6 +13,12 @@
   }
 }
 
+.-t-inherit {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+
 .-h1 {
   font-size: rem(24);
   line-height: rem(26);

@@ -3,7 +3,7 @@
     .b-sidebar__title(
       v-if="!showSearch"
     )
-      span {{getTitle}}
+      h2.-h2.-mb-0 {{getTitle}}
       .-flex-divider
       button.b-button._plain._mt(
         type="button"

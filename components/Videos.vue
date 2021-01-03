@@ -28,11 +28,11 @@
                     :id="item.id"
                     @afterClick="fetchFavourites"
                   )
-              h3.b-card__subtitle.-t-cut(
+              h2.b-card__subtitle.-t-cut(
                 v-html="item.title"
               )
               .-relative
-                h4.b-card__text.-t-cut-lines(
+                .b-card__text.-t-cut-lines(
                   v-html="item.short_content"
                 )
                 .-pos-right-bottom

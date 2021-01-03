@@ -19,7 +19,10 @@
 
 .b-card__title {
   @extend .-h2;
-  @include titleLink;
+
+  &, > * {
+    @include titleLink;
+  }
 }
 
 .b-card__subtitle {
