@@ -14,17 +14,17 @@
 
 <script>
 import Header from '@/components/Header';
+import HeaderSmall from '@/components/HeaderSmall';
 import Sidebar from '@/components/sidebar/Sidebar';
 import Footer from '@/components/Footer';
 import fixVH from '@/utils/fixVH';
 import { mapActions } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
-import HeaderSmall from '@/components/HeaderSmall';
 
 export default {
   components: {
-    HeaderSmall,
     Header,
+    HeaderSmall,
     Sidebar,
     Footer,
   },
@@ -33,8 +33,12 @@ export default {
   },
   mounted() {
     fixVH();
+    this.localStorageLoadedDate = this.$localStorageLoaded && Date.now();
   },
   computed: {
+    ...mapFields('localStorage', [
+      'localStorageLoadedDate',
+    ]),
     ...mapFields('smallMenu', [
       'showSmallMenu',
     ]),

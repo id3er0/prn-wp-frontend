@@ -13,7 +13,8 @@ export const state = () => STATE.toJS();
 
 export const getters = {
   getField,
-  isFavourited: state => id => state.items.includes(id),
+  getLoadedFavourites: (state, getters, rootState) => rootState.localStorage.localStorageLoadedDate && state.items,
+  isFavourited: (state, getters, rootState) => id => rootState.localStorage.localStorageLoadedDate && state.items.includes(id),
 };
 
 export const mutations = {

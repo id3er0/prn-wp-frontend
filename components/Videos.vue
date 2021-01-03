@@ -6,14 +6,14 @@
         v-if="page > 1"
       ) : Page {{page}}
     template(
-      v-if="postsLoaded"
+      v-if="_postsLoaded"
     )
       template(
-        v-if="getPosts"
+        v-if="_posts"
       )
         .g-row
           .g-col._w-3-1(
-            v-for="(item, index) in getPosts"
+            v-for="(item, index) in _posts"
             :key="`${index}_${item.id}`"
             v-if="item"
           )
@@ -67,7 +67,7 @@
 <script>
 import PostCardLike from '@/components/post-card/PostCardLike';
 import Pagination from '@/components/Pagination';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
 import objectValue from '@/utils/objectValue';
 
@@ -145,6 +145,12 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('favourites', [
+      'getLoadedFavourites',
+    ]),
+    ...mapFields('localStorage', [
+      'localStorageLoadedDate',
+    ]),
     ...mapFields('config', [
       'data.header',
       'data.pages',
@@ -154,7 +160,13 @@ export default {
       'posts',
       'totalPages',
     ]),
-    getPosts() {
+    _postsLoaded() {
+      if (this.type === 'favourites') {
+        return this.localStorageLoadedDate && this.postsLoaded;
+      }
+      return this.postsLoaded;
+    },
+    _posts() {
       return Array.isArray(this.posts) && this.posts;
     },
     showPagination() {
@@ -166,10 +178,17 @@ export default {
       'fetchPosts',
     ]),
     fetchFavourites() {
-      if (this.$route.params.type === 'favourites') {
+      if (this.type === 'favourites') {
         this.fetchPosts({
           type: this.$route.params.type,
         });
+      }
+    },
+  },
+  watch: {
+    getLoadedFavourites(v) {
+      if (this.type === 'favourites') {
+        this.fetchFavourites();
       }
     },
   },

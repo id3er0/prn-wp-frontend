@@ -107,7 +107,7 @@ export const actions = {
     let per_page = 15;
 
     if (type === 'favourites') {
-      ids = context.rootState.favourites.items;
+      ids = context.rootGetters['favourites/getLoadedFavourites'];
 
       if (!Array.isArray(ids) || ids.length < 1) {
         context.commit('updateField', {
