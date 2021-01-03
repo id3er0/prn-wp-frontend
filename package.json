@@ -20,6 +20,7 @@
     "immutable": "^4.0.0-rc.12",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.0.0",
+    "nuxt-lazy-load": "^1.2.4",
     "nuxt-vuex-localstorage": "^1.2.7",
     "throttle-debounce": "^2.1.0",
     "video.js": "^7.10.2",

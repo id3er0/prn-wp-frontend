@@ -118,6 +118,7 @@ module.exports = {
       //   'favourites',
       // ],
     }],
+    'nuxt-lazy-load',
   ],
   /*
   ** Globally import Sass files

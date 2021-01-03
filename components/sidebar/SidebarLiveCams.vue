@@ -9,7 +9,7 @@
         :key="index"
       )
         a.b-livecams__item-inner(
-          :style="{'background-image': `url(${wp_theme_url}${item.image})`}"
+          :lazy-background="`${wp_theme_url}${item.image}`"
           :href="item.link"
           target="_blank"
         )

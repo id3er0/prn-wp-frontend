@@ -20,7 +20,7 @@
               v-if="item.video"
             )
               .b-card__image(
-                :style="{'background-image': `url(${item.video.video_meta.poster})`}"
+                :lazy-background="item.video.video_meta.poster"
                 @click="$router.push({name: 'videos-type-page', params: {type: item.key, page: 1}})"
               )
                 PostCardLike(:id="item.video.id")
@@ -38,7 +38,7 @@
           .b-card
             .-mb-3
               .b-card__image(
-                :style="{'background-image': `url(${item.video_meta.poster})`}"
+                :lazy-background="item.video_meta.poster"
                 @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"
               )
                 PostCardLike(:id="item.id")

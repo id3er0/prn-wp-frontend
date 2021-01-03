@@ -21,7 +21,7 @@
               .-mb-3
                 .b-card__image(
                   v-if="item.video_meta && item.video_meta.poster"
-                  :style="{'background-image': `url(${item.video_meta.poster})`}"
+                  :lazy-background="item.video_meta.poster"
                   @click="$router.push({name: 'video-slug', params: {slug: item.slug}})"
                 )
                   PostCardLike(
