@@ -102,6 +102,7 @@ module.exports = {
       }
     },
   },
+  components: true,
   plugins: [
     {src: '@/plugins/content-placeholders.client.js'},
   ],

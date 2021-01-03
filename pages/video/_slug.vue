@@ -9,12 +9,11 @@
       .g-col
         .b-card
           .b-card__video(
-            v-if="getPost.video_meta.video_url"
+            v-if="isClient && getPost.video_meta.video_url"
           )
-            ClientOnly
-              VideoPlayer(
-                :videoUrl="getPost.video_meta.video_url"
-              )
+            LazyVideoPlayer(
+              :videoUrl="getPost.video_meta.video_url"
+            )
           .b-card__iframe(
             v-else-if="getPost.video_meta.embed_code"
             v-html="getPost.video_meta.embed_code"
@@ -75,22 +74,20 @@
 </template>
 
 <script>
-import ClientOnly from 'vue-client-only';
-import VideoPlayer from '@/components/VideoPlayer';
 import { mapActions, mapGetters } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
 import objectValue from '@/utils/objectValue';
-import PostLike from '@/components/post/PostLike';
 
 export default {
-  components: {
-    PostLike,
-    ClientOnly,
-    VideoPlayer,
-  },
+  data: () => ({
+    isClient: false,
+  }),
   async fetch() {
     await this.fetchPosts({});
     await this.fetchPost({slug: this.$route.params.slug});
+  },
+  mounted() {
+    this.isClient = true;
   },
   head() {
     const name = objectValue(this, 'header.name', '');

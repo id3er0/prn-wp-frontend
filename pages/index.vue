@@ -80,15 +80,11 @@
 </template>
 
 <script>
-import PostCardLike from '@/components/post-card/PostCardLike';
-import objectValue from '@/utils/objectValue';
 import { mapActions, mapGetters } from 'vuex';
 import { mapFields } from 'vuex-map-fields';
+import objectValue from '@/utils/objectValue';
 
 export default {
-  components: {
-    PostCardLike,
-  },
   async fetch() {
     await this.fetchFront();
   },
